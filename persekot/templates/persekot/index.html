@@ -1,0 +1,47 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Custom Table</strong>
+            </div>
+            <div class="table-stats order-table ov-h">
+                <table class="table ">
+                    <thead>
+                        <tr align="center">
+                            <th class="serial">No</th>
+                            <th class="avatar">Avatar</th>
+                            <th>NPK</th>
+                            <th>Nama</th>
+                            <th>Unit Kerja</th>
+                            <th>No HP</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in datas %}
+                        <tr>
+                            <td class="serial">{{ forloop.counter }}</td>
+                            <td class="avatar">
+                                <div class="round-img">
+                                    <a href="#"><img class="rounded-circle" src="{% static 'images/avatar/1.jpg' %}" alt=""></a>
+                                </div>
+                            </td>
+                            <td>{{ data.npk }}</td>
+                            <td>{{ data.nama }}</td>
+                            <td>{{ data.get_unit_kerja_display }}</td>
+                            <td>{{ data.no_hape }}</td>
+                            <td>{{ data.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> <!-- /.table-stats -->
+            <a href="{% url 'persekot:karyawan_new' %}" class="btn btn-primary" role="button">Tambah</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

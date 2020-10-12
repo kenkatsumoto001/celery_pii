@@ -1,0 +1,84 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Persekot</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{% url 'home' %}">Dashboard</a></li>
+                            <li class="active">Persekot</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Persekot</strong>
+            </div>
+            <div class="table-responsive">
+                <div class="table-stats order-table ov-h">
+                    <table class="table table">
+                        <thead>
+                            <tr align="center">
+                                <th class="serial">No</th>
+                                <th class="avatar">Avatar</th>
+                                <th>NPK</th>
+                                <th>Nama</th>
+                                <th>Keterangan</th>
+                                <th>Nominal</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Jatuh Tempo</th>
+                                <th>Sisa</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in datas %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td class="avatar">
+                                    <div class="round-img">
+                                        <a href="#"><img class="rounded-circle" src="{% static 'images/avatar/1.jpg' %}"
+                                                alt=""></a>
+                                    </div>
+                                </td>
+                                <td>{{ data.karyawan.npk }}</td>
+                                <td><span class="name">{{ data.karyawan.nama }}</span></td>
+                                <td><span class="product">{{ data.keterangan }}</span></td>
+                                <td align="right"><span>{{ data.nominal|intcomma }}</span></td>
+                                <td><span class="date">{{ data.tgl_pk|date:"d-m-Y" }}</span></td>
+                                <td><span class="date">{{ data.jatuh_tempo|date:"d-m-Y" }}</span></td>
+                                <td><span class="date">{{ data.jatuh_tempo|timeuntil }}</span></td>
+                                <td>
+                                    <span class="badge badge-complete">Lunas</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

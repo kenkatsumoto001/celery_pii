@@ -1,0 +1,112 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Karyawan Detail</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{% url 'home' %}">Dashboard</a></li>
+                            <li><a href="{% url 'persekot:karyawan_list' %}">Karyawan</a></li>
+                            <li class="active">Karyawan Detail</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <aside class="profile-nav alt">
+            <section class="card">
+                <div class="card-header user-header alt bg-dark">
+                    <div class="media">
+                        <a href="#">
+                            <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt=""
+                                src="{{ datas.photo.url }}">
+                        </a>
+                        <div class="media-body">
+                            <h2 class="text-light display-6">{{ datas.nama }}</h2>
+                            <p>{{ datas.npk }}</p>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <dl class="row m-0">
+                            <dt class="col-sm-4">Unit Kerja</dt>
+                            <dd class="col-sm-8">{{ datas.get_unit_kerja_display }}</dd>
+                        </dl>
+                    </li>
+                    <li class="list-group-item">
+                        <dl class="row m-0">
+                            <dt class="col-sm-4">Nomor HP</dt>
+                            <dd class="col-sm-8">{{ datas.no_hape }}</dd>
+                        </dl>
+                    </li>
+                    <li class="list-group-item">
+                        <dl class="row m-0">
+                            <dt class="col-sm-4">Email</dt>
+                            <dd class="col-sm-8">{{ datas.email }}</dd>
+                        </dl>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="row m-0">
+                        <div class="col">
+                            <a class="btn btn-danger" role="button" href="#" data-toggle="modal"
+                                data-target="#staticModal">Hapus</a>
+                        </div>
+                        <div class="col" align="right">
+                            <a class="btn btn-primary" role="button"
+                                href="{% url 'persekot:karyawan_edit' pk=datas.pk %}">Edit</a>
+                            <a class="btn btn-primary" role="button"
+                                href="{% url 'persekot:karyawan_list' %}">Kembali</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </div>
+</div><!-- .row -->
+
+<div class="modal fade" id="staticModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="alert alert-danger" role="alert">
+                    <h5 class="modal-title" id="staticModalLabel">Peringatan</h5>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Apakah anda ingin menghapus {{ datas.nama }} dengan NPK {{ datas.npk }}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <a class="btn btn-danger" role="button" href="{% url 'persekot:karyawan_remove' pk=datas.pk %}">Iya</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

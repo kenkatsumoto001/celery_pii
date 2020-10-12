@@ -1,0 +1,93 @@
+{% extends 'base1.html' %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Karyawan {{ data_method.method }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{% url 'home' %}">Dashboard</a></li>
+                            <li><a href="{% url 'persekot:karyawan_list' %}">Karyawan</a></li>
+                            <li class="active">Karyawan {{ data_method.method }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Karyawan</strong>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <form id="send-push__form" action="#" method="post" enctype="multipart/form-data" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label mb-1">{{ form.npk.label }}</label>
+                            {{ form.npk }}
+                            {{ form.npk.errors }}
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="control-label mb-1">{{ form.nama.label }}</label>
+                            {{ form.nama }}
+                            {{ form.nama.errors }}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label mb-1">{{ form.unit_kerja.label }}</label>
+                                    {{ form.unit_kerja }}
+                                    {{ form.unit_kerja.errors }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label mb-1">{{ form.no_hape.label }}</label>
+                                    {{ form.no_hape }}
+                                    {{ form.no_hape.errors }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label mb-1">{{ form.email.label }}</label>
+                                    {{ form.email }}
+                                    {{ form.email.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="file-input" class="control-label mb-1">Upload Photo</label>
+                            {{ form.photo }}
+                            {{ form.photo.errors }}
+                        </div>
+                        <div align="right">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{% url 'persekot:karyawan_list' %}" class="btn btn-primary" role="button">Batal</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> <!-- .card -->
+    </div>
+</div>
+{% endblock content %}

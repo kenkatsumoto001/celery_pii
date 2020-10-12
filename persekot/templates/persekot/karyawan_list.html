@@ -1,0 +1,126 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Karyawan</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{% url 'home' %}">Dashboard</a></li>
+                            <li class="active">Karyawan</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Karyawan</strong>
+            </div>
+            <div class="card-body">
+                <div class="table-stats order-table ov-h">
+                    <table id="bootstrap-data-table"
+                        class="table table-striped table-bordered table-stats order-table ov-h">
+                        <thead>
+                            <tr align="center">
+                                <th class="serial">No</th>
+                                <th class="avatar">Avatar</th>
+                                <th>NPK</th>
+                                <th>Nama</th>
+                                <th>Unit Kerja</th>
+                                <th>No HP</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in datas %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td class="avatar">
+                                    <div class="round-img">
+                                        <a href="#"><img class="rounded-circle" src="{{ data.photo.url }}" alt=""></a>
+                                    </div>
+                                </td>
+                                <td><a href="{% url 'persekot:karyawan_detail' pk=data.pk %}">{{ data.npk }}</a></td>
+                                <td>{{ data.nama }}</td>
+                                <td>{{ data.get_unit_kerja_display }}</td>
+                                <td>{{ data.no_hape }}</td>
+                                <td>{{ data.email }}</td>
+                                <td align="right">
+                                    <a href="{% url 'persekot:karyawan_edit' pk=data.pk %}"><i class="fa fa-pencil"></i>
+                                        edit</a> |
+                                    <a href="#" data-toggle="modal" data-target="#staticModal{{ data.pk }}"><i
+                                            class="fa fa-ban"></i>
+                                        hapus</a>
+                                </td>
+                            </tr>
+
+                            <div class="modal fade" id="staticModal{{ data.pk }}" tabindex="-1" role="dialog"
+                                aria-labelledby="staticModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-danger" role="alert">
+                                                <h5 class="modal-title" id="staticModalLabel">Peringatan</h5>
+                                            </div>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Apakah anda ingin menghapus {{ data.nama }} dengan NPK {{ data.npk }}
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Batal</button>
+                                            <a class="btn btn-danger" role="button"
+                                                href="{% url 'persekot:karyawan_remove' pk=data.pk %}">Iya</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- /.table-stats -->
+            <div class="card-body">
+                <div class="row m-0">
+                    <div class="col" align="right">
+                        <a href="{% url 'persekot:karyawan_new' %}" class="btn btn-primary" role="button">Tambah</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable();
+    });
+
+</script>
+{% endblock script %}
